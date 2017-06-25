@@ -4,7 +4,7 @@ var logger = require("morgan");
 var mongoose = require("mongoose");
 
 //Require Schemas
-
+var Articles = require("./models/Articles");
 
 var app = express();
 // Sets an initial port. We'll use this later in our listener
