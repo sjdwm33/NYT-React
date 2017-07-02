@@ -36,7 +36,7 @@ app.get('/', function(req, res){
 });
 
 app.get('/api/saved', function(req, res) {
-  Article.find({})
+  Articles.find({})
     .exec(function(err, doc){
       if(err){
         console.log(err);
@@ -48,7 +48,7 @@ app.get('/api/saved', function(req, res) {
 });
 
 app.post('/api/saved', function(req, res){
-  var newArticle = new Article({
+  var newArticle = new Articles({
     title: req.body.title,
     date: req.body.date,
     url: req.body.url
@@ -66,7 +66,7 @@ app.post('/api/saved', function(req, res){
 });
 
 app.delete('/api/saved/:id', function(req, res){
-  Article.find({'_id': req.params.id}).remove()
+  Articles.find({'_id': req.params.id}).remove()
     .exec(function(err, doc) {
       res.send(doc);
   });
