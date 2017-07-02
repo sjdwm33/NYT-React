@@ -79,7 +79,7 @@ var Main = React.createClass({
             		</div>
             	</div>
             	<div className="row">
-            		<Form setTerm={this.setTerm} />
+            		<Search setTerm={this.setTerm} />
             	</div>
             	<div className="row">
             		<Results results={this.state.results} saveArticle={this.saveArticle} />
