@@ -20263,11 +20263,11 @@
 			};
 		},
 	
-		setTerm: function setTerm(topic, startYear, endYear) {
+		setTerm: function setTerm(tpc, stYr, endYr) {
 			this.setState({
-				topic: topic,
-				startYear: startYear,
-				endYear: endYear
+				topic: tpc,
+				startYear: stYr,
+				endYear: endYr
 			});
 		},
 	
@@ -20277,6 +20277,7 @@
 		},
 	
 		deleteArticle: function deleteArticle(article) {
+			console.log(article);
 			axios.delete('/api/saved/' + article._id).then(function (response) {
 				this.setState({
 					savedArticles: response.data
@@ -20296,7 +20297,9 @@
 	
 		componentDidUpdate: function componentDidUpdate(prevProps, prevState) {
 			if (prevState.topic != this.state.topic) {
+				console.log("UPDATED");
 				helpers.runQuery(this.state.topic, this.state.startYear, this.state.endYear).then(function (data) {
+					console.log(data);
 					if (data != this.state.results) {
 						this.setState({
 							results: data
@@ -20323,16 +20326,16 @@
 					{ className: "row" },
 					React.createElement(
 						"div",
-						{ className: "jumbotron" },
+						{ className: "jumbotron", style: { 'backgroundImage': 'url(./assets/images/newspaper.jpg)', 'backgroundRepeat': 'no-repeat', 'backgroundPosition': 'center', 'backgroundSize': '100% 100%', 'backgroundAttachment': 'fixed' } },
 						React.createElement(
 							"h2",
-							{ className: "text-center" },
-							"New York Times Article Scrubber"
+							{ className: "text-center", style: { 'color': 'white', 'textShadow': '3px 3px 10px black', 'fontSize': '54px' } },
+							"New York Times Article Search and Save"
 						),
 						React.createElement(
 							"p",
-							{ className: "text-center" },
-							"Search for and annotate articles of interest!"
+							{ className: "text-center", style: { 'color': 'white', 'textShadow': '3px 3px 10px black', 'fontSize': '24px' } },
+							"Search for and save articles of interest!"
 						)
 					)
 				),
@@ -20353,7 +20356,6 @@
 				)
 			);
 		}
-	
 	});
 	
 	module.exports = Main;
@@ -21744,7 +21746,8 @@
 	
 		componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
 			var that = this;
-			var newResults = nextProps.savedArticles.map(function (search, i) {
+			console.log(nextProps);
+			var myResults = nextProps.savedArticles.map(function (search, i) {
 				var boundClick = that.clickToDelete.bind(that, search);
 				return React.createElement(
 					"div",
@@ -21759,30 +21762,35 @@
 					React.createElement("br", null),
 					React.createElement(
 						"button",
-						{ type: "button", className: "btn btn-warning", style: { 'float': 'right', 'marginTop': '-39px' }, onClick: boundClick },
+						{ type: "button", className: "btn btn-success", style: { 'float': 'right', 'marginTop': '-39px' }, onClick: boundClick },
 						"Delete"
 					)
 				);
 			});
-			this.setState({ savedArticles: newResults });
+			this.setState({ savedArticles: myResults });
 		},
 	
 		render: function render() {
+	
 			return React.createElement(
 				"div",
-				{ className: "panel panel-default" },
+				{ className: "panel panel-success" },
 				React.createElement(
 					"div",
 					{ className: "panel-heading" },
 					React.createElement(
 						"h3",
 						{ className: "panel-title text-center" },
-						"Saved Articles"
+						React.createElement(
+							"strong",
+							null,
+							"Saved Articles"
+						)
 					)
 				),
 				React.createElement(
 					"div",
-					{ className: "panel-body text-center" },
+					{ className: "panel-body" },
 					this.state.savedArticles
 				)
 			);
