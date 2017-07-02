@@ -32,48 +32,45 @@ db.once("open", function() {
 
 //ROUTES
 app.get('/', function(req, res){
-	res.sendFile('./public/index.html');
+  res.sendFile('./public/index.html');
 });
 
-app.get('api/saved', function(req, res){
-	Articles.find({}).exec(function(err, doc){
-		if(err){
-			console.log("get error");
-		}
-		else {
-			res.send(doc);
-		}
-	});
+app.get('/api/saved', function(req, res) {
+  Article.find({})
+    .exec(function(err, doc){
+      if(err){
+        console.log(err);
+      }
+      else {
+        res.send(doc);
+      }
+    })
 });
 
 app.post('/api/saved', function(req, res){
-	var newArticle = new Articles({
-		title: req.body.title,
-		date: req.body.date,
-		url: req.body.url
-	});
+  var newArticle = new Article({
+    title: req.body.title,
+    date: req.body.date,
+    url: req.body.url
+  });
 
-	newArticle.save(function(err, doc){
-		if(err){
-			console.log("post error");
-		}
-		else{
-			res.json(doc);
-		}
-	});
+  newArticle.save(function(err, doc){
+    if(err){
+      console.log(err);
+      res.send(err);
+    } else {
+      res.json(doc);
+    }
+  });
+
 });
 
+app.delete('/api/saved/:id', function(req, res){
+  Article.find({'_id': req.params.id}).remove()
+    .exec(function(err, doc) {
+      res.send(doc);
+  });
 
-
-app.delete('api/saved/:id', function(req, res){
-	Articles.find({'_id': req.params.id}).remove().exec(function(err, data){
-		if(err){
-			console.log("delete error");
-		}
-		else{
-			res.send(doc);
-		}
-	});
 });
 
 // Listener
