@@ -28,7 +28,9 @@ var helpers = {
 
   // This function posts saved articles to our database.
   postArticle: function(title, date, url) {
-    axios.post("/api/saved", { title: title, date: date, url: url}).then(function(results){
+    axios.post('/api/saved', {title: title, date: date, url: url}).then(function(results){
+
+      console.log("Posted to database");
       return(results);
     });
   }
