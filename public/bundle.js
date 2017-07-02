@@ -21774,18 +21774,14 @@
 	
 			return React.createElement(
 				"div",
-				{ className: "panel panel-success" },
+				{ className: "panel panel-default" },
 				React.createElement(
 					"div",
 					{ className: "panel-heading" },
 					React.createElement(
 						"h3",
 						{ className: "panel-title text-center" },
-						React.createElement(
-							"strong",
-							null,
-							"Saved Articles"
-						)
+						"Saved Articles"
 					)
 				),
 				React.createElement(
@@ -21891,20 +21887,21 @@
 	
 	  //This function runs the query to NYT
 	  runQuery: function runQuery(topic, startYear, endYear) {
-	    var queryURL = "https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=" + nytimesAPI + "&q=" + topic + "&begin_date=" + startYear + "0101&end_date=" + endYear + "0101";
+	    var queryURL = "https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=" + nytAPI + "&q=" + topic + "&begin_date=" + startYear + "0101&end_date=" + endYear + "0101";
+	
 	    return axios.get(queryURL).then(function (response) {
+	
 	      var newResults = [];
-	      var allResults = response.data.response.docs;
+	      var fullResults = response.data.response.docs;
 	      var counter = 0;
 	
-	      //return the first 5 articles that meet the criteria
-	      for (var i = 0; i < allResults.length; i++) {
+	      for (var i = 0; i < fullResults.length; i++) {
 	        if (counter > 4) {
 	          return newResults;
 	        }
 	
-	        if (allResults[counter].headline.main && allResults[counter].pub_date && allResults[counter].web_url) {
-	          newResults.push(allResults[counter]);
+	        if (fullResults[counter].headline.main && fullResults[counter].pub_date && fullResults[counter].web_url) {
+	          newResults.push(fullResults[counter]);
 	          counter++;
 	        }
 	      }
@@ -21914,8 +21911,8 @@
 	
 	  // This function posts saved articles to our database.
 	  postArticle: function postArticle(title, date, url) {
-	    axios.post('/api/saved', { title: title, date: date, url: url }).then(function (results) {
 	
+	    axios.post('/api/saved', { title: title, date: date, url: url }).then(function (results) {
 	      console.log("Posted to database");
 	      return results;
 	    });
