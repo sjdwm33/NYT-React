@@ -21906,7 +21906,9 @@
 	
 	  // This function posts saved articles to our database.
 	  postArticle: function postArticle(title, date, url) {
-	    return axios.post("/api", { title: title, date: date, url: url });
+	    axios.post("/api/saved", { title: title, date: date, url: url }).then(function (results) {
+	      return results;
+	    });
 	  }
 	
 	};
