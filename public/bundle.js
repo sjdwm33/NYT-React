@@ -21887,7 +21887,7 @@
 	
 	  //This function runs the query to NYT
 	  runQuery: function runQuery(topic, startYear, endYear) {
-	    var queryURL = "https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=" + nytAPI + "&q=" + topic + "&begin_date=" + startYear + "0101&end_date=" + endYear + "0101";
+	    var queryURL = "https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=" + nytimesAPI + "&q=" + topic + "&begin_date=" + startYear + "0101&end_date=" + endYear + "0101";
 	
 	    return axios.get(queryURL).then(function (response) {
 	
