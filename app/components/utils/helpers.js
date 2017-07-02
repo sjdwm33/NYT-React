@@ -1,23 +1,24 @@
 var axios = require("axios");
 var nytimesAPI = "4f14f6be03334883a5c41c827be80938";
 
-var helper = {
+var helpers = {
 
   //This function runs the query to NYT
   runQuery: function(topic, startYear, endYear){
   	var queryURL = "https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=" + nytimesAPI + "&q=" + topic + "&begin_date=" + startYear + "0101&end_date=" + endYear + "0101";
-  	return axios.get(queryURL).then(function(res){
+  	return axios.get(queryURL).then(function(response){
   		var newResults = [];
-  		var allResults = res.data.res.docs;
+  		var allResults = response.data.response.docs;
   		var counter = 0;
 
   		//return the first 5 articles that meet the criteria
-  		for (var i = 0; i < fullReults.length; i++) {
+  		for (var i = 0; i < allResults.length; i++) {
   			if (counter > 4) {
   				return newResults;
   			}
 
-  			if(fullReults[counter].headline.main && fullReults[counter].pub_date && fullReults[counter].web_url) {
+  			if(allResults[counter].headline.main && allResults[counter].pub_date && allResults[counter].web_url) {
+          newResults.push(allResults[counter]);
   				counter++;
   			}
   		}

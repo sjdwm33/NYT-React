@@ -4,10 +4,9 @@ var logger = require("morgan");
 var mongoose = require("mongoose");
 
 //Require Schemas
-var Articles = require("./models/Articles");
+var Articles = require("./models/Articles.js");
 
 var app = express();
-// Sets an initial port. We'll use this later in our listener
 var PORT = process.env.PORT || 3000;
 
 // Run Morgan for Logging
@@ -32,24 +31,7 @@ db.once("open", function() {
 
 //ROUTES
 app.get('/', function(req, res){
-	res.sendFile(__dirname + './public/index.html');
-});
-
-app.post('/api/saved', function(req, res){
-	var newArticle = new Articles(req.body);
-
-	var title = req.body.title;
-	var date = req.body.date;
-	var url = req.body.url;
-
-	newArticle.save(function(err, doc){
-		if(err){
-			console.log("post error");
-		}
-		else{
-			res.send(doc);
-		}
-	});
+	res.sendFile('./public/index.html');
 });
 
 app.get('api/saved', function(req, res){
@@ -58,20 +40,37 @@ app.get('api/saved', function(req, res){
 			console.log("get error");
 		}
 		else {
+			res.send(doc);
+		}
+	});
+});
+
+app.post('/api/saved', function(req, res){
+	var newArticle = new Articles({
+		title: req.body.title,
+		date: req.body.date,
+		url: req.body.url
+	});
+
+	newArticle.save(function(err, doc){
+		if(err){
+			console.log("post error");
+		}
+		else{
 			res.json(doc);
 		}
 	});
 });
 
-app.delete('api/saved/', function(req, res){
-	var url = req.param('url');
 
-	Articles.find({"url": url}).remove().exec(function(err, data){
+
+app.delete('api/saved/:id', function(req, res){
+	Articles.find({'_id': req.params.id}).remove().exec(function(err, data){
 		if(err){
 			console.log("delete error");
 		}
 		else{
-			res.send("deleted");
+			res.send(doc);
 		}
 	});
 });
