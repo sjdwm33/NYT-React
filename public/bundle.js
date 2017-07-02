@@ -20326,15 +20326,15 @@
 					{ className: "row" },
 					React.createElement(
 						"div",
-						{ className: "jumbotron", style: { 'backgroundImage': 'url(./assets/images/newspaper.jpg)', 'backgroundRepeat': 'no-repeat', 'backgroundPosition': 'center', 'backgroundSize': '100% 100%', 'backgroundAttachment': 'fixed' } },
+						{ className: "jumbotron" },
 						React.createElement(
 							"h2",
-							{ className: "text-center", style: { 'color': 'white', 'textShadow': '3px 3px 10px black', 'fontSize': '54px' } },
+							{ className: "text-center" },
 							"New York Times Article Search and Save"
 						),
 						React.createElement(
 							"p",
-							{ className: "text-center", style: { 'color': 'white', 'textShadow': '3px 3px 10px black', 'fontSize': '24px' } },
+							{ className: "text-center" },
 							"Search for and save articles of interest!"
 						)
 					)
