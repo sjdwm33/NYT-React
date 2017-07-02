@@ -47,7 +47,7 @@ app.post('/api/saved', function(req, res){
 			console.log("post error");
 		}
 		else{
-			res.send(doc._id);
+			res.send(doc);
 		}
 	});
 });
