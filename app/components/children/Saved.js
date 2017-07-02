@@ -25,9 +25,9 @@ var Saved = React.createClass({
 	render: function(){
 
 		return(
-			<div className="panel panel-success">
+			<div className="panel panel-default">
 				<div className="panel-heading">
-					<h3 className="panel-title text-center"><strong>Saved Articles</strong></h3>
+					<h3 className="panel-title text-center">Saved Articles</h3>
 				</div>
 				<div className="panel-body">
 					{this.state.savedArticles}
