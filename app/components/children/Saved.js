@@ -1,9 +1,9 @@
-var React = require("react");
+var React = require('react');
 
 var Saved = React.createClass({
 
 	getInitialState: function(){
-		return{
+		return {
 			savedArticles: []
 		}
 	},
@@ -14,24 +14,27 @@ var Saved = React.createClass({
 
 	componentWillReceiveProps: function(nextProps){
 		var that = this;
-		var newResults = nextProps.savedArticles.map(function(search, i){
+		console.log(nextProps);
+		var myResults = nextProps.savedArticles.map(function(search, i){
 			var boundClick = that.clickToDelete.bind(that, search);
-			return <div className="list-group-item" key={i}><a href={search.url} target="_blank">{search.title}</a><br />{search.date}<br /><button type="button" className="btn btn-warning" style={{'float': 'right', 'marginTop': '-39px'}} onClick={boundClick}>Delete</button></div>
+			return <div className="list-group-item" key={i}><a href={search.url} target="_blank">{search.title}</a><br />{search.date}<br /><button type="button" className="btn btn-success" style={{'float': 'right', 'marginTop': '-39px'}} onClick={boundClick}>Delete</button></div>
 		});
-		this.setState({savedArticles: newResults});
+		this.setState({savedArticles: myResults});
 	},
 
-	render: function() {
-		return (
-			<div className="panel panel-default">
+	render: function(){
+
+		return(
+			<div className="panel panel-success">
 				<div className="panel-heading">
-					<h3 className="panel-title text-center">Saved Articles</h3>
+					<h3 className="panel-title text-center"><strong>Saved Articles</strong></h3>
 				</div>
-				<div className="panel-body text-center">
+				<div className="panel-body">
 					{this.state.savedArticles}
 				</div>
 			</div>
-		);
+
+		)
 	}
 });
 
